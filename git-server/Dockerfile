@@ -40,9 +40,11 @@ RUN set -eux; \
 # Create the necessary directory structure in the user's home directory
 RUN set -eux; \
     mkdir -p ${GIT_HOME}/.ssh; \
-    mkdir -p ${GIT_REPOSITORIES_PATH}; \
-    touch ${SSH_AUTHORIZED_KEYS_FILE}; \
-    chmod -R 700 ${GIT_HOME}/.ssh; \
+    mkdir -p ${GIT_REPOSITORIES_PATH}
+
+COPY authorized_keys ${SSH_AUTHORIZED_KEYS_FILE}
+
+RUN chmod -R 700 ${GIT_HOME}/.ssh; \
     chmod -R 600 ${SSH_AUTHORIZED_KEYS_FILE}; \
     chmod -R u+xwr ${GIT_HOME}
 

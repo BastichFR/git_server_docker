@@ -26,7 +26,7 @@ stop_dk:
 run: 
 	docker run  -d \
 				-p 2222:22 \
-				-v /home/bastich/Documents/temp/docker/git-repositories:/home/git/repositories \
+				-v /home/bastich/Documents/temp/docker/git_server_docker/git-repositories:/home/git/repositories \
 				--name git-server git-server:latest
 
 stop: 
@@ -52,8 +52,6 @@ exec_root:
 
 exec_user: 
 	docker exec -itu git git-server bash
-
-
 
 # ==================================================
 
