@@ -42,6 +42,9 @@ remove:
 	docker rm git-server
 	docker rmi git-server
 
+restart: 
+	docker restart git-server
+
 kill: stop remove
 
 do: build run

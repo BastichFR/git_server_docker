@@ -8,8 +8,7 @@ RUN set -ex; \
     git \
     openssh \
     bash \
-    curl \
-    netcat-openbsd
+    curl
 
 # Generate SSH host keys
 RUN ssh-keygen -A
