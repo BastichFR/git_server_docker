@@ -29,7 +29,7 @@ stop_dk:
 run: 
 	docker run  -d \
 				-p 2222:22 \
-				-v /home/bastich/Documents/temp/docker/git_server_docker/git-repositories:/home/git/repositories \
+				-v ./git-repositories:/home/git/repositories \
 				--name git-server git-server:latest 
 
 stop: 
@@ -42,11 +42,11 @@ remove:
 	docker rm git-server
 	docker rmi git-server
 
+kill: stop remove
+
 do: build run
 
-redo: stop remove do
-
-kill: stop remove
+redo: kill do
 
 # ==================================================
 
@@ -58,16 +58,4 @@ exec_user:
 
 # ==================================================
 
-imgs:
-	@docker images
-
-ps:
-	@docker ps -a
-
-log:
-	@ssh -p 2222 git@localhost
-
-# ==================================================
-
-
-.PHONY: main start_dk stop_dk run stop build remove do redo exec_root exec_user kill
+.PHONY: main start_dk stop_dk run stop build remove kill do redo exec_root exec_user
