@@ -7,7 +7,9 @@ RUN set -ex; \
     apk add --no-cache \
     git \
     openssh \
-    bash
+    bash \
+    curl \
+    netcat-openbsd
 
 # Generate SSH host keys
 RUN ssh-keygen -A
@@ -62,10 +64,10 @@ RUN set -eux; \
 # Définition du répertoire de travail
 WORKDIR ${GIT_HOME}
 
-# Exposition du port SSH
-EXPOSE 22
-
 # Lancement du serveur SSH
 COPY sshd_config /etc/ssh/sshd_config
+
+# Exposition du port SSH
+EXPOSE 22
 
 CMD ["/usr/sbin/sshd", "-D"]
