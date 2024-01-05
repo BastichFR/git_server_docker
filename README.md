@@ -29,7 +29,8 @@ Log into the server through SSH. Note the git user is restricted to
 only few commands, thoses are listed in the help command :
 
 ```
-ssh git@localhost -p 2222
+IP_ADDR = "curl -4 ifconfig.me"
+ssh git@<$IP_ADDR> -p 2222
 ```
 
 Only people whose ssh keys are registered in authorized_keys will be able to connect.
@@ -54,12 +55,17 @@ git init --bare repositories/your-repo.git
 #### Basic git commands
 
 ```
-git clone ssh://git@localhost:2222/home/git/repositories/your-repo.git
+git clone ssh://git@<$IP_ADDR>:2222/home/git/repositories/your-repo.git
 ```
 
-All other commands operate normally
+All other git commands work normally on your computer.
+The ssh server shell executes only the git-init command.
 
 ## License
 
 This project is under MIT License.
 Please respect the use of this project and it's License
+
+## About
+
+Thanks to @AuroreMOMYM22004066 for her help and inspiration with this project. If any issue occurs, do not hesitate to contact us.

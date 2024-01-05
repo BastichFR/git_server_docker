@@ -1,4 +1,4 @@
-CURRENT_IP  := $(shell curl -4 ifconfig.me)
+CURRENT_IP  := $(shell curl -s -4 ifconfig.me)
 CURRENT_UID := $(shell id -u)
 ROOT_UID    := 0
 
@@ -7,14 +7,16 @@ export CURRENT_UID
 export ROOT_UID
 
 main:
-ifeq ($(CURRENT_UID), $(ROOT_UID))
-	@echo "current IP is : $(CURRENT_IP):2222"
-	@echo "run : `ssh -p 2222 git@$(CURRENT_IP)` to connect to the server"
-else
-	@echo "You are not logged in as root"
-	@echo "Switching to root with sudo..."
-	@sudo -i
-endif
+	@if [ $(CURRENT_UID) -eq $(ROOT_UID) ]; then \
+		echo "====================================================================="; \
+		echo "current IP is : $(CURRENT_IP):2222"; \
+		echo "connect: 'ssh -p 2222 git@$(CURRENT_IP)' to connect to the server"; \
+		echo "====================================================================="; \
+	else \
+		echo "You are not logged in as root"; \
+		echo "Switching to root with sudo..."; \
+		sudo -s; \
+	fi
 
 # ==================================================
 
@@ -26,23 +28,23 @@ stop_dk:
 
 # ==================================================
 
-run: 
+run: main
 	docker run  -d \
 				-p 2222:22 \
 				-v ./git-repositories:/home/git/repositories \
 				--name git-server git-server:latest 
 
-stop: 
+stop: main
 	docker stop git-server
 
-build: 
+build: main
 	docker build git-server/ -t git-server:latest
 
-remove: 
+remove: main
 	docker rm git-server
 	docker rmi git-server
 
-restart: 
+restart: main
 	docker restart git-server
 
 kill: stop remove
