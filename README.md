@@ -68,4 +68,6 @@ Please respect the use of this project and it's License
 
 ## About
 
-Thanks to [1]: https://github.com/AuroreMOMYM22004066 for her help and inspiration with this project. If any issue occurs, do not hesitate to contact us.
+Thanks to [AuroreMOMYM22004066][1] for her help and inspiration with this project. If any issue occurs, do not hesitate to contact us.
+
+[1]: https://github.com/AuroreMOMYM22004066
